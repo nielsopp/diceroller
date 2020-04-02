@@ -5,7 +5,7 @@ Requirements:
 -------------
 - python (tested with version 3.6.9)
 - numpy (tested with version 1.13.3)
-- PyQt (tested with version 5.)
+- PyQt (tested with version 5.9.2)
 
 Usage:
 ------
