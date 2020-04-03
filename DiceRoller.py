@@ -7,6 +7,7 @@ Created on Thu Apr 02 08:04:58 2020
 
 NumDice = 5
 MaxRoll = 3
+Faces = 6
 
 
 import sys
@@ -73,7 +74,7 @@ class DiceRoller(QtWidgets.QWidget):
             self.count += 1
             self.roll_label.setText('You have rolled %i time%s.'%(self.count,'s'*(self.count != 1)))
             select = np.array([self.boxes[ii].isChecked() for ii in range(NumDice)])
-            self.results[select] = np.random.choice(np.arange(1,6),int(np.sum(select)))
+            self.results[select] = np.random.choice(np.arange(1,Faces + 1),int(np.sum(select)))
             for ii in range(NumDice):
                 self.res_labels[ii].setText('%i'%self.results[ii])
         return
