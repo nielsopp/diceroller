@@ -34,7 +34,7 @@ class DiceRoller(QtWidgets.QWidget):
         for ii in range(NumDice):
             label = res_labels[ii]
             pixmap = QPixmap('images/0.png').scaled(size, size)
-            label.move(ii*size,0)
+            label.move(ii*size,30)
             label.setPixmap(pixmap)
             label.show()
             
@@ -43,8 +43,9 @@ class DiceRoller(QtWidgets.QWidget):
         #add checkboxes
         boxes = [QtWidgets.QCheckBox(self) for ii in range(NumDice)]
         for ii in range(NumDice):
-            boxes[ii].move(int(0.4*size) + ii*size,size + 10)
+            boxes[ii].move(int(0.4*size) + ii*size,size + 35)
             boxes[ii].setChecked(True)
+            boxes[ii].setEnabled(False)
         self.boxes = boxes
         
         #add reset button
@@ -57,9 +58,10 @@ class DiceRoller(QtWidgets.QWidget):
         roll_button = QtWidgets.QPushButton('Roll',self)
         roll_button.move(xpos,40)
         roll_button.clicked[bool].connect(self.roll)
+        self.roll_button = roll_button
 
         #set window parameters
-        self.setGeometry(200, 200, NumDice*size + 100, size + 40)
+        self.setGeometry(200, 200, NumDice*size + 100, size + 60)
         self.setWindowTitle('DiceRoller - %i dice, %i rolls'%(NumDice,MaxRoll))
         self.show()
         return
@@ -68,8 +70,10 @@ class DiceRoller(QtWidgets.QWidget):
         self.roll_label.setText('You have rolled 0 times.')
         self.results = np.zeros(NumDice)*np.nan
         self.count = 0
+        self.roll_button.setEnabled(True)
         for ii in range(NumDice):
             self.boxes[ii].setChecked(True)
+            self.boxes[ii].setEnabled(False)
             self.res_labels[ii].setPixmap(QPixmap('images/0.png').scaled(size, size))
         return
     
@@ -83,6 +87,9 @@ class DiceRoller(QtWidgets.QWidget):
             for ii in range(NumDice):
                 res = self.results[ii]
                 self.res_labels[ii].setPixmap(QPixmap('images/%d.png' % res).scaled(size, size))
+                self.boxes[ii].setEnabled(True)
+        if self.count == MaxRoll:
+            self.roll_button.setEnabled(False)
 
         return
 
