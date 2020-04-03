@@ -1,6 +1,8 @@
 # diceroller
 Simple python widget to roll virtual dice for a game of yahtzee.
 
+![alt text](images/diceroller.png "View of DiceRoller in action")
+
 Requirements:
 -------------
 - python (tested with version 3.6.9)
